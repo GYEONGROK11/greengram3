@@ -12,6 +12,15 @@
         </if>
     </insert>
 
+    <select id="selUser">
+        SELECT upw, iuser, nm, pic, created_at as createdAt
+        FROM t_user
+        <where>
+            <if test="uid != null and uid !='' "></if>
+                uid = #{uid}
+        </where>
+
+    </select>
 
 
 
