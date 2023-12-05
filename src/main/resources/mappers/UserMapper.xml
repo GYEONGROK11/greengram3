@@ -39,7 +39,7 @@
         , A.nm, A.created_at as createdAt, A.pic
         , D.follower, D.following, D.followState
         FROM t_user A
-        LEFT JOIN t_feed B1
+        LEFT JOIN t_feed B
         ON A.iuser = B.iuser
         LEFT JOIN t_feed_fav C
         ON B.ifeed = C.ifeed
