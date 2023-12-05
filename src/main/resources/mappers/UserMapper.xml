@@ -32,7 +32,27 @@
         INSERT t_user_follow
         SET from_iuser =#{fromIuser}
         ,to_iuser = #{toIuser}
-
     </insert>
+
+    <select id="userInfo">
+        SELECT COUNT(DISTINCT B.ifeed) as feedCnt, COUNT(c.ifeed) as favCnt
+        , A.nm, A.created_at as createdAt, A.pic
+        , D.follower, D.following, D.followState
+        FROM t_user A
+        LEFT JOIN t_feed B
+        ON A.iuser = B.iuser
+        LEFT JOIN t_feed_fav C
+        ON B.ifeed = C.ifeed
+        JOIN
+        (SELECT SUM(IF(from_iuser = #{targetIuser}, 1, 0)) AS following
+        , SUM(IF(to_iuser = #{targetIuser}, 1, 0)) AS follower
+        , (
+        SUM(if(from_iuser = #{loginedIuser} AND to_iuser =#{targetIuser},1,0))
+        + SUM(if(from_iuser = #{targetIuser} AND to_iuser =#{loginedIuser},2,0))
+        ) AS followState
+        FROM t_user_follow
+        ) D
+        WHERE A.iuser = #{targetIuser}
+    </select>
 
 </mapper>

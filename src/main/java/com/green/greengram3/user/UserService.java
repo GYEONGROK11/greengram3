@@ -58,7 +58,7 @@ public class UserService {
 
 
     public UserInfoVo userInfo(UserInfoDto dto){
-        return null;
+        return mapper.userInfo(dto);
 
     }
 }

@@ -35,7 +35,7 @@ public class UserController {
         return service.follow(dto);
     }
 
-    @GetMapping("/info")
+    @GetMapping
     public UserInfoVo userInfo(UserInfoDto dto){
         return service.userInfo(dto);
     }

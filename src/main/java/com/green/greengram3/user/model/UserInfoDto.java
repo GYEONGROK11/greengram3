@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class UserInfoDto {
-    private int tartgetiuser;
+    private int targetIuser;
     private int loginedIuser;
 }

@@ -17,4 +17,6 @@ public interface UserMapper {
     int insFollow(UserFollowDto dto);
 
     UserInfoVo userInfo(UserInfoDto dto);
+
+
 }
