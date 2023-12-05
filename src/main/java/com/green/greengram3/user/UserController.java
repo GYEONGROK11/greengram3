@@ -1,17 +1,12 @@
 package com.green.greengram3.user;
 
 import com.green.greengram3.common.ResVo;
-import com.green.greengram3.user.model.UserSignVo;
-import com.green.greengram3.user.model.UserSigninDto;
-import com.green.greengram3.user.model.UserSignupDto;
+import com.green.greengram3.user.model.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -33,5 +28,15 @@ public class UserController {
     @Operation(summary = "인증",description = "아이디/비번을 활용한 인증처리")
     public UserSignVo postSignin(@RequestBody UserSigninDto dto){
         return service.signin(dto);
+    }
+
+    @PostMapping("/follow")
+    public ResVo toggleFollow(@RequestBody UserFollowDto dto){
+        return service.follow(dto);
+    }
+
+    @GetMapping("/info")
+    public UserInfoVo userInfo(UserInfoDto dto){
+        return service.userInfo(dto);
     }
 }

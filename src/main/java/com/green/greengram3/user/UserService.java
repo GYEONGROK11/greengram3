@@ -6,6 +6,7 @@ import com.green.greengram3.user.model.*;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Service
@@ -43,6 +44,22 @@ public class UserService {
             vo.setPic(entity.getPic());
         }
         return vo;
+    }
+
+    public ResVo follow(UserFollowDto dto){
+        int result = mapper.delFollow(dto);
+
+        if(result == 0){
+            mapper.insFollow(dto);
+            return new ResVo(Const.SUCCESS);
+        }
+        return new ResVo(Const.FAIL);
+    }
+
+
+    public UserInfoVo userInfo(UserInfoDto dto){
+        return null;
+
     }
 }
 

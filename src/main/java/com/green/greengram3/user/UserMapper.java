@@ -11,4 +11,10 @@ public interface UserMapper {
     UserSigninProcVo signin(UserSigninDto dto);
 
     UserEntity selUser(UserSelDto dto);
+
+    int delFollow(UserFollowDto dto);
+
+    int insFollow(UserFollowDto dto);
+
+    UserInfoVo userInfo(UserInfoDto dto);
 }

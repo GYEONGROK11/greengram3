@@ -1,5 +1,6 @@
 package com.green.greengram3.feed;
 
+import com.green.greengram3.feed.model.FeedDelDto;
 import com.green.greengram3.feed.model.FeedInsDto;
 import com.green.greengram3.feed.model.FeedSelDto;
 import com.green.greengram3.feed.model.FeedSelVo;
@@ -13,4 +14,8 @@ public interface FeedMapper {
     int insFeed(FeedInsDto dto);
 
     List<FeedSelVo> feedSel(FeedSelDto dto);
+
+    int feedDel(FeedDelDto dto);
+
+    Integer feedDelUser(FeedDelDto dto);
 }
