@@ -74,9 +74,9 @@ public class FeedService {
         int result = favMapper.delFeedFav(dto);
         if (result == 0) {
             favMapper.insFeedFav(dto);
-            return new ResVo(1);
+            return new ResVo(Const.FEED_FAV_ADD);
         }
-        return new ResVo(0);
+        return new ResVo(Const.FEED_FAV_DEL);
     }
 
     public ResVo postComment(FeedCommentInsDto dto) {

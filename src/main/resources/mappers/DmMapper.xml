@@ -2,9 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.greengram3.dm.DmMapper">
+    <insert id="insDm" useGeneratedKeys="true" keyProperty="idm">
+        INSERT INTO t_dm 
+        SET last_msg = NULL
+    </insert>
+
+    <insert id="insDmUser">
+        INSERT INTO t_dm_user
+        SET idm = #{idm}
+        , iuser = #{iuser}
+    </insert>
+
+    <insert id="insDmMsg">
+        <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+            SELECT IFNULL(MAX(seq), 0) + 1
+            FROM t_dm_msg
+            WHERE idm = #{idm}
+        </selectKey>
+        INSERT INTO t_dm_msg
+        SET idm = #{idm}
+        , seq = #{seq}
+        , iuser = #{loginedIuser}
+        , msg = #{msg}
+    </insert>
+
+    <select id="selDmMsgAll">
+        SELECT B.seq, B.msg
+        , B.created_at as createdAt
+        , A.iuser as writerIuser, A.pic as writerPic
+        FROM t_user A
+        JOIN t_dm_msg B
+        ON A.iuser = B.iuser
+        WHERE B.idm = #{idm}
+        ORDER BY B.seq DESC
+        LIMIT #{startIdx},#{rowCount}
+    </select>
+
+    <select id="getDmAll">
+        SELECT A.idm, A.last_msg as lastMsg
+        , A.last_msg_at as lastMsgAt
+        , D.nm as otherPersonNm, D.pic as otherPersonPic
+        FROM t_dm A
+        JOIN t_dm_user B
+        ON A.idm = B.idm
+        JOIN t_dm_user C
+        ON B.idm = C.idm
+        JOIN t_user D
+        ON C.iuser = D.iuser
+        WHERE B.iuser = #{loginedIuser}
+        AND C.iuser != #{loginedIuser}
+        ORDER BY A.last_msg_at DESC
+        LIMIT #{startIdx},#{rowCount}
+    </select>
+
+    <select id="delDmByMe">
+        SELECT seq
+        FROM t_dm_msg
+        WHERE idm = #{idm}
+        AND iuser = #{login}
+        AND iuser = #{target}
+    </select>
+
+    <delete id="delDmMsg">
+        DELETE
+        FROM t_dm_msg
+        WHERE idm = #{idm}
+        AND seq = #{seq}
+        AND iuser = #{iuser}
 
 
-
-
+    </delete>
 
 </mapper>
