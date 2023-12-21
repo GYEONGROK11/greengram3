@@ -26,6 +26,11 @@ public class UserService {
         mapper.insUser(pDto);
         return new ResVo(pDto.getIuser());
     }
+    public ResVo patchUserFirebaseToken(UserFirebaseTokenPatchDto dto) {
+        int affectedRows = mapper.updUserFirebaseToken(dto);
+        return new ResVo(affectedRows);
+    }
+
 
     public UserSignVo signin(UserSigninDto dto){
         UserSelDto sDto = new UserSelDto();

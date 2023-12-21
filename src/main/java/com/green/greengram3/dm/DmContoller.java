@@ -22,6 +22,11 @@ public class DmContoller {
         return service.postDmMsg(dto);
     }
 
+    @PostMapping
+    public DmSelVo postDm(@RequestBody DmInsDto dto){
+        return service.postDm(dto);
+    }
+
     @GetMapping
     public List<DmSelVo> getDmAll(DmSelDto dto){
         return service.getDmAll(dto);
@@ -35,6 +40,7 @@ public class DmContoller {
 
     @DeleteMapping("/msg")
     public ResVo delDmMsg(DmMsgDelDto dto){
+
         return service.delDmMsg(dto);
     }
 }

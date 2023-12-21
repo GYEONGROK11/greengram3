@@ -20,13 +20,16 @@ public class FeedService {
     private final FeedCommentMapper commentMapper;
 
     public ResVo postFeed(FeedInsDto dto) {
-        mapper.insFeed(dto);
-        picsMapper.insFeedPic(dto);
+        int feedAffectedRows = mapper.insFeed(dto);
+        log.info("{}",feedAffectedRows);
+        int picsAffectedRows =picsMapper.insFeedPic(dto);
+        log.info("{}",picsAffectedRows);
         return new ResVo(dto.getIfeed());
     }
 
     public List<FeedSelVo> feedSel(FeedSelDto dto) {
         List<FeedSelVo> list = mapper.feedSel(dto);
+
         FeedCommentSelDto fcDto = new FeedCommentSelDto();
         fcDto.setStartIdx(0);
         fcDto.setRowCount(Const.FEED_COMMENT_FIRST_CMT);

@@ -12,6 +12,8 @@ public interface UserMapper {
 
     UserEntity selUser(UserSelDto dto);
 
+    int updUserFirebaseToken(UserFirebaseTokenPatchDto dto);
+
     int delFollow(UserFollowDto dto);
 
     int insFollow(UserFollowDto dto);

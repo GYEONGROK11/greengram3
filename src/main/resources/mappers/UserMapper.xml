@@ -13,11 +13,15 @@
     </insert>
 
     <select id="selUser">
-        SELECT upw, iuser, nm, pic, created_at as createdAt
+        SELECT iuser, upw, nm, pic, created_at as createdAt
         FROM t_user
         <where>
-            <if test="uid != null and uid !='' "></if>
+            <if test="uid != null and uid !='' ">
                 uid = #{uid}
+            </if>
+            <if test="iuser >0">
+                iuser = #{iuser}
+            </if>
         </where>
     </select>
 
@@ -54,5 +58,11 @@
         ) D
         WHERE A.iuser = #{targetIuser}
     </select>
+
+    <update id="updUserFirebaseToken">
+        UPDATE t_user
+        SET firebase_token = #{firebaseToken}
+        WHERE iuser = #{iuser}
+    </update>
 
 </mapper>
